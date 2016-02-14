@@ -150,6 +150,8 @@ enum keystone_error
 keystone_start(keystone_context_t *context)
 {
 	assert(context != NULL);
+    memset(context, 0, sizeof *context);           
+    memset(&context->pvt, 0, sizeof context->pvt); 
 	if (!context->curl_error) {
 		context->curl_error = default_curl_error_callback;
 	}
@@ -705,9 +707,9 @@ keystone_authenticate(keystone_context_t *context, const char *url, const char *
 
 	/* Append pseudo-header defeating libcurl's default addition of an "Expect: 100-continue" header. */
 	headers = curl_slist_append(headers, "Expect:");
-
 	/* Generate POST request body containing the authentication credentials */
 	context->pvt.auth_payload = context->allocator(
+//	context->pvt.auth_payload = default_allocator(
 		context->pvt.auth_payload,
 		body_len
 		+ 1 /* '\0' */
