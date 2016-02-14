@@ -709,7 +709,6 @@ keystone_authenticate(keystone_context_t *context, const char *url, const char *
 	headers = curl_slist_append(headers, "Expect:");
 	/* Generate POST request body containing the authentication credentials */
 	context->pvt.auth_payload = context->allocator(
-//	context->pvt.auth_payload = default_allocator(
 		context->pvt.auth_payload,
 		body_len
 		+ 1 /* '\0' */
